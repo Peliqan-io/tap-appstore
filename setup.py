@@ -10,7 +10,7 @@ setup(name='tap-appstore',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       py_modules=['tap-appstore'],
       install_requires=[
-          'singer-python==5.2.3',
+          'singer-python @ git+https://github.com/peliqan-io/singer-python@master',
           'appstoreconnect==0.9.0',
           'pytz==2018.4'
       ],
