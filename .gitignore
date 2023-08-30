@@ -103,11 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#local files
-appstore_config.json
-appstore_state.json
-target_config.json
-/secrets
+#local files and folders
+secrets/
+config.json
 
 
 #idea
