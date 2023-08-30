@@ -8,7 +8,7 @@ Sample config:
 ```$json
 {
   "key_id": "AAAAAAAAA",
-  "key_file": "./AuthKey_AAAAAAAAA.p8",
+  "key_file": "-----BEGIN PRIVATE KEY\n...base64 encoded key from .p8 file...\n-----END PRIVATE KEY-----",
   "issuer_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
   "vendor": "3333333",
   "start_date": "2019-02-01T00:00:00Z"
