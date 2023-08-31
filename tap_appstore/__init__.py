@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from datetime import timedelta
+import dateparser
 import os
 import json
 from typing import Dict, Union, List
@@ -27,32 +28,35 @@ LOGGER = singer.get_logger()
 
 BOOKMARK_DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 TIME_EXTRACTED_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
+BEG_END_DATE_FORMAT = '%Y-%m-%d'
 
 API_REQUEST_FIELDS = {
-    'subscription_event_report': {
-        'reportType': 'SUBSCRIPTION_EVENT',
-        'frequency': 'DAILY',
-        'reportSubType': 'SUMMARY',
-        'version': '1_2'
-    },
-    'subscriber_report': {
-        'reportType': 'SUBSCRIBER',
-        'frequency': 'DAILY',
-        'reportSubType': 'DETAILED',
-        'version': '1_2'
-    },
-    'subscription_report': {
-        'reportType': 'SUBSCRIPTION',
-        'frequency': 'DAILY',
-        'reportSubType': 'SUMMARY',
-        'version': '1_2'
-    },
     'sales_report': {
         'reportType': 'SALES',
         'frequency': 'DAILY',
         'reportSubType': 'SUMMARY',
         'version': '1_0'
     }
+    # only non-subscription based streams to avoid vendor error
+    #
+    # 'subscription_event_report': {
+    #     'reportType': 'SUBSCRIPTION_EVENT',
+    #     'frequency': 'DAILY',
+    #     'reportSubType': 'SUMMARY',
+    #     'version': '1_2'
+    # },
+    # 'subscriber_report': {
+    #     'reportType': 'SUBSCRIBER',
+    #     'frequency': 'DAILY',
+    #     'reportSubType': 'DETAILED',
+    #     'version': '1_2'
+    # },
+    # 'subscription_report': {
+    #     'reportType': 'SUBSCRIPTION',
+    #     'frequency': 'DAILY',
+    #     'reportSubType': 'SUMMARY',
+    #     'version': '1_2'
+    # }
 }
 
 
@@ -116,19 +120,22 @@ def discover(api: Api):
     raw_schemas = load_schemas()
     streams = []
     for schema_name, schema in raw_schemas.items():
-        report_date = datetime.strptime(get_bookmark(schema_name), "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
-        filters = get_api_request_fields(report_date, schema_name)
+        # to generate catalog entry for only sales_report, if for all, remove "if"
+        if schema_name=='sales_report':
+            report_date = datetime.strptime(get_bookmark(schema_name), "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
+            filters = get_api_request_fields(report_date, schema_name)
 
-        report = _attempt_download_report(api, filters)
-        if report:
-            # create and add catalog entry
-            catalog_entry = {
-                'stream': schema_name,
-                'tap_stream_id': schema_name,
-                'schema': schema,
-                'key_properties': []
-            }
-            streams.append(catalog_entry)
+            report = _attempt_download_report(api, filters)
+            if report:
+                # create and add catalog entry
+                catalog_entry = {
+                    'stream': schema_name,
+                    'tap_stream_id': schema_name,
+                    'schema': schema,
+                    'key_properties': [],
+                    'metadata' : metadata.to_list(metadata.new())
+                }
+                streams.append(catalog_entry)
 
     if len(streams) == 0:
         LOGGER.warning("Could not find any reports types to download for the input configuration.")
@@ -221,20 +228,29 @@ def query_report(api: Api, catalog_entry):
             rep = _attempt_download_report(api, report_filters)
 
             # write records
-            for index, line in enumerate(rep, start=1):
-                data = line
-                data['_line_id'] = index
-                data['_time_extracted'] = extraction_time.strftime(TIME_EXTRACTED_FORMAT)
-                data['_api_report_date'] = report_date
-                rec = transformer.transform(data, stream_schema)
+            # try-except block to avoid NoneType error for present day
+            try:
+                for index, line in enumerate(rep, start=1):
+                    data = line
+                    # begin_date and end_date format change
+                    begin_date = dateparser.parse(data['begin_date'])
+                    data['begin_date'] = datetime.strftime(begin_date, BEG_END_DATE_FORMAT)
+                    end_date = dateparser.parse(data['end_date'])
+                    data['end_date'] = datetime.strftime(end_date, BEG_END_DATE_FORMAT)
+                    data['_line_id'] = index
+                    data['_time_extracted'] = extraction_time.strftime(TIME_EXTRACTED_FORMAT)
+                    data['_api_report_date'] = report_date
+                    rec = transformer.transform(data, stream_schema)
 
-                singer.write_record(
-                    stream_name,
-                    rec,
-                    time_extracted=extraction_time
-                )
+                    singer.write_record(
+                        stream_name,
+                        rec,
+                        time_extracted=extraction_time
+                    )
 
-                Context.new_counts[stream_name] += 1
+                    Context.new_counts[stream_name] += 1
+            except TypeError:
+                pass
 
             singer.write_bookmark(
                 Context.state,

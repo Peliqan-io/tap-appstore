@@ -103,6 +103,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+#local files and folders
+secrets/
+config.json
+
 
 #idea
 .idea
