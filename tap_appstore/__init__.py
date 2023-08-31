@@ -37,7 +37,7 @@ API_REQUEST_FIELDS = {
         'reportSubType': 'SUMMARY',
         'version': '1_0'
     }
-    # ncw - only non-subscription based streams to avoid vendor error
+    # only non-subscription based streams to avoid vendor error
     #
     # 'subscription_event_report': {
     #     'reportType': 'SUBSCRIPTION_EVENT',
@@ -120,8 +120,8 @@ def discover(api: Api):
     raw_schemas = load_schemas()
     streams = []
     for schema_name, schema in raw_schemas.items():
-        # ncw - to generate catalog entry for only sales_report, if for all, remove "if"
-        if schema_name == "sales_report":
+        # to generate catalog entry for only sales_report, if for all, remove "if"
+        if schema_name=='sales_report':
             report_date = datetime.strptime(get_bookmark(schema_name), "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
             filters = get_api_request_fields(report_date, schema_name)
 
@@ -132,7 +132,8 @@ def discover(api: Api):
                     'stream': schema_name,
                     'tap_stream_id': schema_name,
                     'schema': schema,
-                    'key_properties': []
+                    'key_properties': [],
+                    'metadata' : metadata.to_list(metadata.new())
                 }
                 streams.append(catalog_entry)
 
@@ -227,10 +228,11 @@ def query_report(api: Api, catalog_entry):
             rep = _attempt_download_report(api, report_filters)
 
             # write records
+            # try-except block to avoid NoneType error for present day
             try:
                 for index, line in enumerate(rep, start=1):
                     data = line
-                    # nwc - changed begin_date and end_date format
+                    # begin_date and end_date format change
                     begin_date = dateparser.parse(data['begin_date'])
                     data['begin_date'] = datetime.strftime(begin_date, BEG_END_DATE_FORMAT)
                     end_date = dateparser.parse(data['end_date'])
