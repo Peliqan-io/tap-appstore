@@ -122,20 +122,15 @@ def discover(api: Api):
     for schema_name, schema in raw_schemas.items():
         # to generate catalog entry for only sales_report, if for all, remove "if"
         if schema_name=='sales_report':
-            report_date = datetime.strptime(get_bookmark(schema_name), "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
-            filters = get_api_request_fields(report_date, schema_name)
-
-            report = _attempt_download_report(api, filters)
-            if report:
-                # create and add catalog entry
-                catalog_entry = {
-                    'stream': schema_name,
-                    'tap_stream_id': schema_name,
-                    'schema': schema,
-                    'key_properties': [],
-                    'metadata' : metadata.to_list(metadata.new())
-                }
-                streams.append(catalog_entry)
+            # create and add catalog entry for sales_report - avoiding date based report in discovery.
+            catalog_entry = {
+                'stream': schema_name,
+                'tap_stream_id': schema_name,
+                'schema': schema,
+                'key_properties': [],
+                'metadata' : metadata.to_list(metadata.new())
+            }
+            streams.append(catalog_entry)
 
     if len(streams) == 0:
         LOGGER.warning("Could not find any reports types to download for the input configuration.")
