@@ -188,7 +188,7 @@ def _attempt_download_report(api: Api, report_filters: Dict[str, any]) -> Union[
     try:
         rep_tsv = api.download_sales_and_trends_reports(filters=report_filters)
     except APIError as e:
-        LOGGER.error(e)
+        LOGGER.warning(e)
         return None
 
     # parse api response
