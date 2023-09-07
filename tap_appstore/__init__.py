@@ -215,7 +215,7 @@ def query_report(api: Api, catalog_entry):
     )
 
     with Transformer(singer.UNIX_SECONDS_INTEGER_DATETIME_PARSING) as transformer:
-        while iterator + delta <= extraction_time:
+        while iterator+delta < extraction_time:
             report_date = iterator.strftime("%Y-%m-%d")
             LOGGER.info("Requesting Appstore data for: %s on %s", stream_name, report_date)
             # setting report filters for each stream
@@ -251,7 +251,7 @@ def query_report(api: Api, catalog_entry):
                 Context.state,
                 stream_name,
                 'start_date',
-                (iterator + delta).strftime(BOOKMARK_DATE_FORMAT)
+                (iterator).strftime(BOOKMARK_DATE_FORMAT)
             )
 
             singer.write_state(Context.state)
