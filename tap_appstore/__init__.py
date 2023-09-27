@@ -127,7 +127,7 @@ def discover(api: Api):
                 'stream': schema_name,
                 'tap_stream_id': schema_name,
                 'schema': schema,
-                'key_properties': [],
+                'key_properties': ["_line_id","_api_report_date"],
                 'metadata' : metadata.to_list(metadata.new())
             }
             streams.append(catalog_entry)
