@@ -1,198 +1,133 @@
 {
-    "type": [
-        "null",
-        "object"
-    ],
-    "properties": {
-        "_line_id": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "_time_extracted": {
-            "type": [
-            "null",
-            "string"
-            ],
-            "format" : "date-time"
-        },
-        "_api_report_date": {
-            "type": [
-            "null",
-            "string"
-            ],
-            "format" : "date"
-        },
-        "provider": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "provider_country": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "sku": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "developer": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "title": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "version": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "product_type_identifier": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "units": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "developer_proceeds": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "begin_date": {
-            "type": [
-                "null",
-                "string"
-            ],
-            "format" : "date"
-        },
-        "end_date": {
-            "type": [
-                "null",
-                "string"
-            ],
-            "format" : "date"
-        },
-        "customer_currency": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "country_code": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "currency_of_proceeds": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "apple_identifier": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "customer_price": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "promo_code": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "parent_identifier": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "subscription": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "period": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "category": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "cmb": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "device": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "supported_platforms": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "proceeds_reason": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "preserved_pricing": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "client": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "order_type": {
-            "type": [
-                "null",
-                "string"
-            ]
-        }
+  "type": ["null", "object"],
+  "properties": {
+    "_line_id": {
+      "type": ["null", "integer"],
+      "description": "TODO"
+    },
+    "_time_extracted": {
+      "type": ["null", "string"],
+      "format": "date-time",
+      "description": "Time at which report was extracted"
+    },
+    "_api_report_date": {
+      "type": ["null", "string"],
+      "format": "date",
+      "description": "Report extraction date."
+    },
+    "provider": {
+      "type": ["null", "string"],
+      "description": "Service provider in your reports (typically Apple)."
+    },
+    "provider_country": {
+      "type": ["null", "string"],
+      "description": "Service provider country code (typically U.S.)."
+    },
+    "sku": {
+      "type": ["null", "string"],
+      "description": "Product identifier provided by you during app setup."
+    },
+    "developer": {
+      "type": ["null", "string"],
+      "description": "Provider name provided by you during the initial account setup."
+    },
+    "title": {
+      "type": ["null", "string"],
+      "description": "App name provided by you during app setup."
+    },
+    "version": {
+      "type": ["null", "string"],
+      "description": "Version number provided by you during app setup."
+    },
+    "product_type_identifier": {
+      "type": ["null", "string"],
+      "description": "Defines the type of transaction (for example, initial download or update)"
+    },
+    "units": {
+      "type": ["null", "integer"],
+      "description": "Aggregated number of units. Negative values indicate refunds, or CMB credits for previously purchased apps when the CMB column shows CMB-C. A value of 0 may indicate a partial refund."
+    },
+    "developer_proceeds": {
+      "type": ["null", "string"],
+      "description": "Amount you receive per unit. This is the customer price minus applicable taxes and Apple’s commission, per Schedule 2 of your Paid Applications Agreement."
+    },
+    "begin_date": {
+      "type": ["null", "string"],
+      "format": "date",
+      "description": "Start date of report"
+    },
+    "end_date": {
+      "type": ["null", "string"],
+      "format": "date",
+      "description": "End date of report"
+    },
+    "customer_currency": {
+      "type": ["null", "string"],
+      "description": "Three-character ISO code indicating the customer’s currency"
+    },
+    "country_code": {
+      "type": ["null", "string"],
+      "description": "Two-character ISO country code indicating the App Store storefront through which the purchase was made"
+    },
+    "currency_of_proceeds": {
+      "type": ["null", "string"],
+      "description": "The currency in which the customer is paid"
+    },
+    "apple_identifier": {
+      "type": ["null", "string"],
+      "description": "Your app's Apple ID"
+    },
+    "customer_price": {
+      "type": ["null", "string"],
+      "description": "The price per unit billed to the customer, which you set for your app or in-app purchase in App Store Connect"
+    },
+    "promo_code": {
+      "type": ["null", "string"],
+      "description": "If the transaction was part of a promotion, this field will contain a value. This field is empty for all non-promotional items"
+    },
+    "parent_identifier": {
+      "type": ["null", "string"],
+      "description": "SKU of the app associated with the in-app purchase"
+    },
+    "subscription": {
+      "type": ["null", "string"],
+      "description": "Defines whether an auto-renewable subscription is new or a renewal. When a previous subscriber resubscribes, it's classified as a renewal"
+    },
+    "period": {
+      "type": ["null", "string"],
+      "description": "Defines the duration of an auto-renewable subscription purchase: 7 days, 1 month, 2 months, 3 months, 6 months, and 1 year"
+    },
+    "category": {
+      "type": ["null", "string"],
+      "description": "Indicates the primary category of the app, such as Games"
+    },
+    "cmb": {
+      "type": ["null", "string"],
+      "description": "If the transaction completes an app bundle, this field will contain a value of “CMB.” App credits for completed bundles will show a value of “CMB-C.” Otherwise this field is blank"
+    },
+    "device": {
+      "type": ["null", "string"],
+      "description": "Type of device used for purchase or redownload: iPhone, iPad, Apple TV, iPod touch, or Desktop"
+    },
+    "supported_platforms": {
+      "type": ["null", "string"],
+      "description": "List of platforms that your app supports: iOS, tvOS, iOS and tvOS, or macOS"
+    },
+    "proceeds_reason": {
+      "type": ["null", "string"],
+      "description": "If a subscription is active for more than a year, you receive 85% of the customer price (minus applicable taxes) and this field equals “Rate After One Year”. Otherwise, you receive 70% and the field is blank."
+    },
+    "preserved_pricing": {
+      "type": ["null", "string"],
+      "description": "For Renew events, if the price is preserved then this field equals “Yes”. Otherwise, it’s blank"
+    },
+    "client": {
+      "type": ["null", "string"],
+      "description": "Indicates where the purchase happened: App Store for iMessage, News, or blank."
+    },
+    "order_type": {
+      "type": ["null", "string"],
+      "description": "For introductory or subscription offers, displays the type of transaction: Pay Up Front or Pay As You Go. For pre-orders, indicates whether a purchase originated from a pre-order. For promotional offers, displays the order ID. For offer codes, displays the offer code reference name you entered in App Store Connect when setting up the subscription offer"
     }
+  }
 }
