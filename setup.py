@@ -12,7 +12,7 @@ setup(name='tap-appstore',
       install_requires=[
           'singer-python @ git+https://github.com/peliqan-io/singer-python@master',
           'appstoreconnect @ git+https://github.com/Peliqan-io/appstoreconnectapi@master',
-          'pytz==2018.4',
+          'pytz',
           'dateparser==1.1.8'
       ],
       entry_points='''
