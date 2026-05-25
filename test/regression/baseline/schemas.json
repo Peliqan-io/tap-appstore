@@ -1,0 +1,200 @@
+{
+  "sales_report": {
+    "properties": {
+      "_api_report_date": {
+        "format": "date",
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "_line_id": {
+        "type": [
+          "null",
+          "integer"
+        ]
+      },
+      "_time_extracted": {
+        "format": "date-time",
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "apple_identifier": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "begin_date": {
+        "format": "date",
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "category": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "client": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "cmb": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "country_code": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "currency_of_proceeds": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "customer_currency": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "customer_price": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "developer": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "developer_proceeds": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "device": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "end_date": {
+        "format": "date",
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "order_type": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "parent_identifier": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "period": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "preserved_pricing": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "proceeds_reason": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "product_type_identifier": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "promo_code": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "provider": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "provider_country": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "sku": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "subscription": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "supported_platforms": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "title": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "units": {
+        "type": [
+          "null",
+          "integer"
+        ]
+      },
+      "version": {
+        "type": [
+          "null",
+          "string"
+        ]
+      }
+    },
+    "type": [
+      "null",
+      "object"
+    ]
+  }
+}
